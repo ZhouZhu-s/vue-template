@@ -4,6 +4,8 @@ import * as path from 'path';
 import eslintPlugin from 'vite-plugin-eslint';
 import vitePluginHtmlEnv from 'vite-plugin-html-env';
 import vueJsx from '@vitejs/plugin-vue-jsx';
+import Components from 'unplugin-vue-components/vite';
+import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }): UserConfig => {
@@ -35,7 +37,16 @@ export default defineConfig(({ command, mode }): UserConfig => {
       vitePluginHtmlEnv({
         compiler: true,
       }),
+      /**
+       * jsx/tsx 语法支持
+       */
       vueJsx(),
+      /**
+       * ant-design-vue 按需加载
+       */
+      Components({
+        resolvers: [AntDesignVueResolver()],
+      }),
     ],
     resolve: {
       alias: [{ find: '@', replacement: path.resolve('src') }],
