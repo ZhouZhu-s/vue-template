@@ -3,7 +3,7 @@ import { message } from 'ant-design-vue';
 import httpStatusCodeHandler from './httpStatusCodeHandler';
 
 const instance: AxiosInstance = axios.create({
-  baseURL: '/proxy',
+  baseURL: import.meta.env.VITE_PROXY_PREFIX,
 });
 
 /**
