@@ -29,6 +29,10 @@ export default defineConfig(({ command, mode }): UserConfig => {
       __VUE_I18N_LEGACY_API__: false,
       __INTLIFY_PROD_DEVTOOLS__: false,
     },
+    /**
+     * envPrefix开头的环境变量会通过 import.meta.env 暴露客户端源码
+     */
+    envPrefix: 'VITE_',
     plugins: [
       vue(),
       eslintPlugin({
@@ -61,6 +65,15 @@ export default defineConfig(({ command, mode }): UserConfig => {
           rewrite: (path) => path.replace(/^\/proxy/, ''),
         },
       },
+    },
+    /**
+     * 构建
+     */
+    build: {
+      /**
+       * 是否生成 source map 文件
+       */
+      sourcemap: false,
     },
   };
 });
