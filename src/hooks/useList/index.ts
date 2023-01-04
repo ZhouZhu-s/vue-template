@@ -31,7 +31,7 @@ export default function useList<ItemType extends Object, T extends object>(
   /**
    * 筛选条件
    */
-  const filterOptions = reactive(new FilterObject());
+  const filterOptions = reactive<T>(new FilterObject());
   /**
    * 获取列表数据
    */
