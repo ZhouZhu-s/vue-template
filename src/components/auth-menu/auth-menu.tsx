@@ -109,8 +109,7 @@ export default defineComponent({
       return (
         <>
           <Menu
-            // @ts-ignore
-            vModel={[selectedKeys.value, 'selectedKeys']}
+            v-model={[selectedKeys.value, 'selectedKeys']}
             theme={props.theme}
             mode={props.mode}
           >
