@@ -10,7 +10,7 @@ export type Page = {
   pageSize: number;
 };
 
-export default function useList<ItemType extends Object, T extends object>(
+export default function useList<ItemType extends object, T extends object>(
   loadDataFn: Function,
   FilterObject: FilterOptions<T>
 ) {
