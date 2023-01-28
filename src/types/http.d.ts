@@ -1,4 +1,4 @@
-export interface ResponseType<T = any> {
+declare interface Response<T = any> {
   errorCode: number;
   errorMsg: string;
   data: T;
