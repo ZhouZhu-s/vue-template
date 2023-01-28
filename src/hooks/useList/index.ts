@@ -1,8 +1,14 @@
-import { reactive, ref, watch } from 'vue';
+import { removeEmpty } from '@/utils';
+import { reactive, ref } from 'vue';
 
 interface FilterOptions<T> {
   new (): T;
 }
+
+export type Page = {
+  page: number;
+  pageSize: number;
+};
 
 export default function useList<ItemType extends Object, T extends object>(
   loadDataFn: Function,
@@ -35,16 +41,13 @@ export default function useList<ItemType extends Object, T extends object>(
   /**
    * 获取列表数据
    */
-  const getListData = async (current: number) => {
+  const getListData = async (params: Page & object) => {
     loading.value = true;
     try {
-      const {
-        data: { errorCode, data, page: pageData },
-      } = await loadDataFn(pageSize.value, current, filterOptions);
-      if (errorCode === 10200) {
-        total.value = pageData.total;
-        list.value = data;
-      }
+      const data = await loadDataFn(removeEmpty(params));
+      currentPage.value = params.page;
+      pageSize.value = params.pageSize;
+      list.value = data;
     } catch {
       console.error('loadDataFn error');
     } finally {
@@ -52,17 +55,13 @@ export default function useList<ItemType extends Object, T extends object>(
     }
   };
   /**
-   * 监听分页，请求数据
-   */
-  watch([currentPage, pageSize], () => {
-    getListData(currentPage.value);
-  });
-  /**
    * 重置筛选条件
    */
   const resetFilterOptions = () => {
     Object.assign(filterOptions, new FilterObject());
-    getListData(1);
+    currentPage.value = 1;
+    pageSize.value = 10;
+    getListData({ page: currentPage.value, pageSize: pageSize.value });
   };
 
   return {
