@@ -33,7 +33,11 @@ export default defineComponent({
                 ) : null}
                 {!item.options && !item.treeData ? (
                   <item.renderLabel
-                    v-model={[props.data[item.key], 'value']}
+                    v-model={[
+                      props.data[item.key],
+                      'value',
+                      item.vModelModifiers,
+                    ]}
                     {...item.attribute}
                   ></item.renderLabel>
                 ) : null}

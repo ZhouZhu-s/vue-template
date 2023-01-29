@@ -15,6 +15,8 @@ export type RenderLabelType = {
   ATreeSelect: typeof import('ant-design-vue/es')['TreeSelect'];
 };
 
+export type VModelModifierType = 'lazy' | 'number' | 'trim';
+
 export type GridLayoutType = {
   row: RowProps;
   col: ColProps;
@@ -34,6 +36,7 @@ export type SearchHeaderRenderType = {
   attribute?: any;
   treeData?: TreeSelectProps['treeData'];
   authorities?: string[];
+  vModelModifiers?: VModelModifierType[];
 };
 
 export const searchHeaderProps = {

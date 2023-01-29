@@ -12,6 +12,8 @@ type O = {
   [key: string]: unknown;
 };
 
+export type VModelModifierType = 'lazy' | 'number' | 'trim';
+
 export type RenderLabelType = {
   ASelect: typeof import('ant-design-vue/es')['Select'];
   AInput: typeof import('ant-design-vue/es')['Input'];
@@ -39,6 +41,7 @@ export type SearchHeaderRenderType = {
   options?: { value: string | number; label: string }[];
   attribute?: any;
   authorities?: string[];
+  vModelModifiers?: VModelModifierType[];
 };
 
 export const searchHeaderProps = {
@@ -100,6 +103,7 @@ const searchRenderOptions: SearchHeaderRenderType[] = [
     attribute: {
       placeholder: 'please input name',
     },
+    vModelModifiers: ['trim']
   },
   {
     key: 'selectValue',
