@@ -1,4 +1,4 @@
-declare interface Response<T = any> {
+declare interface ResponseBody<T = any> {
   errorCode: number;
   errorMsg: string;
   data: T;
