@@ -49,7 +49,8 @@ export default defineConfig(({ command, mode }): UserConfig => {
        * ant-design-vue 按需加载
        */
       Components({
-        resolvers: [AntDesignVueResolver()],
+        resolvers: [AntDesignVueResolver({ resolveIcons: true })],
+        exclude: ['src/components'],
       }),
     ],
     resolve: {
