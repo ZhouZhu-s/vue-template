@@ -10,7 +10,7 @@ export const unique = (function () {
 })();
 
 /**
- * 移除对象只为空的属性
+ * 移除对象值为空的属性
  */
 export const removeEmpty = <T extends object>(obj: T): RemoveNull<T> => {
   const nullValue = [undefined, null, ''];
