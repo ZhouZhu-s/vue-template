@@ -1,9 +1,11 @@
-export interface LoginType {
-  name: string;
-}
+export namespace Login {
+  export interface LoginType {
+    name: string;
+  }
 
-export interface PostLoginParams {
-  username: string;
-  password: string;
-  rememberMe: boolean;
+  export interface PostLoginParams {
+    username: string;
+    password: string;
+    rememberMe: boolean;
+  }
 }
