@@ -9,6 +9,7 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AButton: typeof import('ant-design-vue/es')['Button']
     ASelect: typeof import('ant-design-vue/es')['Select']
+    AutoScrollTable: typeof import('./src/components/auto-scroll-table/auto-scroll-table.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
