@@ -100,7 +100,10 @@ export default defineComponent({
       return dataSource.value.map((item, index) => (
         <tr class={index % 2 === 0 ? 'even' : 'odd'}>
           {columns.value.map((col) => (
-            <td style={{ textAlign: col.align ? col.align : 'left' }}>
+            <td
+              style={{ textAlign: col.align ? col.align : 'left' }}
+              title={(item as any)[col.dataIndex]}
+            >
               {slots[col.dataIndex]
                 ? slots[col.dataIndex]?.((item as any)[col.dataIndex])
                 : (item as any)[col.dataIndex]}
