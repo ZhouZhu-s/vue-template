@@ -3,9 +3,8 @@ export namespace Login {
     name: string;
   }
 
-  export interface PostLoginParams {
+  export interface PostParams {
     username: string;
     password: string;
-    rememberMe: boolean;
   }
 }
