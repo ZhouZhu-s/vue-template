@@ -33,5 +33,6 @@ module.exports = {
       },
     ],
     'vue/no-multiple-template-root': 0,
+    'vue/no-v-model-argument': 0,
   },
 };
