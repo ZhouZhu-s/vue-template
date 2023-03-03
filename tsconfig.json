@@ -11,6 +11,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
+    "importHelpers": true,
     "lib": [
       "ESNext",
       "DOM"
@@ -19,8 +20,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": [
-        "src/*",
-        "components.d.ts"
+        "src/*"
       ]
     },
     "types": [
@@ -31,7 +31,8 @@
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
-    "src/**/*.vue"
+    "src/**/*.vue",
+    "auto-import.d.ts"
   ],
   "references": [
     {

@@ -6,16 +6,16 @@ import vitePluginHtmlEnv from 'vite-plugin-html-env';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import Components from 'unplugin-vue-components/vite';
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
+import antDesignThemeVars from './src/theme/ant-design-vars';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }): UserConfig => {
   /**
-   * 获取项目目录
+   * project directory
    */
-  // @ts-ignore
   const root = process.cwd();
   /**
-   * 获取环境变量
+   * get env file
    */
   const { VITE_PORT, VITE_GLOB_API_URL } = loadEnv(mode, root);
 
@@ -30,7 +30,7 @@ export default defineConfig(({ command, mode }): UserConfig => {
       __INTLIFY_PROD_DEVTOOLS__: false,
     },
     /**
-     * envPrefix开头的环境变量会通过 import.meta.env 暴露客户端源码
+     *  VITE_ 开头的环境变量会通过 import.meta.env 暴露客户端源码
      */
     envPrefix: 'VITE_',
     plugins: [
@@ -42,17 +42,39 @@ export default defineConfig(({ command, mode }): UserConfig => {
         compiler: true,
       }),
       /**
-       * jsx/tsx 语法支持
+       * jsx/tsx support
        */
       vueJsx(),
       /**
-       * ant-design-vue 按需加载
+       * ant-design-vue ui load on demand
        */
       Components({
-        resolvers: [AntDesignVueResolver({ resolveIcons: true })],
-        exclude: ['src/components'],
+        resolvers: [
+          AntDesignVueResolver({
+            resolveIcons: true,
+            importStyle: 'less',
+          }),
+        ],
+        dts: 'auto-import.d.ts',
+        include: [/\.vue$/, /\.vue\?vue/, /\.md$/, /\.tsx$/],
+        exclude: [
+          /[\\/]node_modules[\\/]/,
+          /[\\/]\.git[\\/]/,
+          /[\\/]\.src[\\/]/,
+        ],
       }),
     ],
+    /**
+     * custom theme
+     */
+    css: {
+      preprocessorOptions: {
+        less: {
+          javascriptEnabled: true,
+          modifyVars: antDesignThemeVars,
+        },
+      },
+    },
     resolve: {
       alias: [{ find: '@', replacement: path.resolve('src') }],
     },
@@ -68,11 +90,11 @@ export default defineConfig(({ command, mode }): UserConfig => {
       },
     },
     /**
-     * 构建
+     * build options
      */
     build: {
       /**
-       * 是否生成 source map 文件
+       * build source map file
        */
       sourcemap: false,
     },

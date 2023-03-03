@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@ant-design/icons-vue": "^6.1.0",
+    "@types/node": "^18.14.5",
     "ant-design-vue": "^3.2.13",
     "await-to-js": "^3.0.0",
     "axios": "^0.27.2",
@@ -42,5 +43,9 @@
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-html-env": "^1.2.7",
     "vue-tsc": "^0.40.4"
-  }
+  },
+  "main": "index.js",
+  "repository": "https://github.com/ZhouZhu-s/vue-template.git",
+  "author": "letconstvar <1985225667@qq.com>",
+  "license": "MIT"
 }
