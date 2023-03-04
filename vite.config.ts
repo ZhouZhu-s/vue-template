@@ -7,6 +7,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx';
 import Components from 'unplugin-vue-components/vite';
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
 import antDesignThemeVars from './src/theme/ant-design-vars';
+import viteCompression from 'vite-plugin-compression';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }): UserConfig => {
@@ -63,6 +64,10 @@ export default defineConfig(({ command, mode }): UserConfig => {
           /[\\/]\.src[\\/]/,
         ],
       }),
+      /**
+       * gzip
+       */
+      viteCompression(),
     ],
     /**
      * custom theme
