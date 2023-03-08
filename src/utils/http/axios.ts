@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios';
-import { message } from 'ant-design-vue';
+// import { message } from 'ant-design-vue';
+import { showToast } from 'vant';
 import httpStatusCodeHandler from './httpStatusCodeHandler';
 
 const instance: AxiosInstance = axios.create({
@@ -27,12 +28,15 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (res): AxiosResponse => {
     if (res.data.errorCode !== 10200) {
-      message.error(res.data.errorMsg);
+      // message.error(res.data.errorMsg);
+      showToast({
+        message: res.data.errorMsg,
+      });
     }
     return res;
   },
   (err): AxiosResponse => {
-    httpStatusCodeHandler.sendMessage(err.response.status, message);
+    httpStatusCodeHandler.sendMessage(err.response.status);
     return err;
   }
 );

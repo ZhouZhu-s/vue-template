@@ -5,9 +5,9 @@ import eslintPlugin from 'vite-plugin-eslint';
 import vitePluginHtmlEnv from 'vite-plugin-html-env';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import Components from 'unplugin-vue-components/vite';
-import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
-import antDesignThemeVars from './src/theme/ant-design-vars';
+import { VantResolver } from 'unplugin-vue-components/resolvers';
 import viteCompression from 'vite-plugin-compression';
+import legacy from '@vitejs/plugin-legacy';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }): UserConfig => {
@@ -16,9 +16,9 @@ export default defineConfig(({ command, mode }): UserConfig => {
    */
   const root = process.cwd();
   /**
-   * get env file
+   * env
    */
-  const { VITE_PORT, VITE_GLOB_API_URL } = loadEnv(mode, root);
+  const { VITE_PORT, VITE_HOST, VITE_PROXY_URL } = loadEnv(mode, root);
 
   return {
     /**
@@ -43,19 +43,20 @@ export default defineConfig(({ command, mode }): UserConfig => {
         compiler: true,
       }),
       /**
+       * 浏览器适配
+       */
+      legacy({
+        targets: ['chrome 80'],
+      }),
+      /**
        * jsx/tsx support
        */
       vueJsx(),
       /**
-       * ant-design-vue ui load on demand
+       * vant ui load on demand
        */
       Components({
-        resolvers: [
-          AntDesignVueResolver({
-            resolveIcons: true,
-            importStyle: 'less',
-          }),
-        ],
+        resolvers: [VantResolver()],
         dts: 'auto-import.d.ts',
         include: [/\.vue$/, /\.vue\?vue/, /\.md$/, /\.tsx$/],
         exclude: [
@@ -69,26 +70,18 @@ export default defineConfig(({ command, mode }): UserConfig => {
        */
       viteCompression(),
     ],
-    /**
-     * custom theme
-     */
-    css: {
-      preprocessorOptions: {
-        less: {
-          javascriptEnabled: true,
-          modifyVars: antDesignThemeVars,
-        },
-      },
-    },
     resolve: {
       alias: [{ find: '@', replacement: path.resolve('src') }],
     },
+    /**
+     * development server
+     */
     server: {
-      host: '0.0.0.0',
+      host: VITE_HOST,
       port: Number(VITE_PORT),
       proxy: {
         '^/proxy/.*': {
-          target: 'http://127.0.0.1:3000',
+          target: VITE_PROXY_URL,
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/proxy/, ''),
         },

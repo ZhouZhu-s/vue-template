@@ -1,6 +1,9 @@
-declare interface ResponseBody<T = any> {
+declare interface BaseResponseBody {
   errorCode: number;
   errorMsg: string;
+}
+
+declare interface ResponseBody<T = any> extends BaseResponseBody {
   data: T;
   page: {
     page: number;

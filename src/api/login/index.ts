@@ -1,4 +1,4 @@
-import http from '@/utils/http';
+import http from '@/utils/http/axios';
 import { Login } from './types';
 
 enum API {
@@ -6,5 +6,5 @@ enum API {
 }
 
 export const postLoginApi = async (data: Login.PostParams) => {
-  return http.post<string>(API.Login, data);
+  return http.post<ResponseBody<null>>(API.Login, data);
 };

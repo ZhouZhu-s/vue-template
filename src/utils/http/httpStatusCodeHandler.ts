@@ -1,4 +1,4 @@
-import { MessageApi } from 'ant-design-vue/lib/message';
+import { showToast } from 'vant';
 
 interface StrategyType {
   [code: number]: () => string;
@@ -35,9 +35,9 @@ class HttpStatusCodeHandler {
     this.strategies = strategies;
   }
 
-  sendMessage(status: number, message: MessageApi) {
+  sendMessage(status: number) {
     const tip = this.strategies[status]();
-    message.error(tip);
+    showToast({ message: tip });
   }
 }
 

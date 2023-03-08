@@ -13,5 +13,7 @@ declare module '@vue/runtime-core' {
     AutoScrollTable: typeof import('./src/components/auto-scroll-table/auto-scroll-table.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    VanButton: typeof import('vant/es')['Button']
+    VanConfigProvider: typeof import('vant/es')['ConfigProvider']
   }
 }
