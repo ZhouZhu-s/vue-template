@@ -15,7 +15,6 @@ const test = async () => {
   const results = await postLoginApi({
     username: 'admin',
     password: 'admin',
-    rememberMe: true,
   });
   console.log(results);
 };
