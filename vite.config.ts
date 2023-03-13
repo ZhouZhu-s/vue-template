@@ -18,7 +18,7 @@ export default defineConfig(({ command, mode }): UserConfig => {
   /**
    * get env file
    */
-  const { VITE_PORT, VITE_GLOB_API_URL } = loadEnv(mode, root);
+  const { VITE_PORT, VITE_HOST, VITE_PROXY_URL } = loadEnv(mode, root);
 
   return {
     /**
@@ -84,7 +84,7 @@ export default defineConfig(({ command, mode }): UserConfig => {
       alias: [{ find: '@', replacement: path.resolve('src') }],
     },
     server: {
-      host: '0.0.0.0',
+      host: VITE_HOST,
       port: Number(VITE_PORT),
       proxy: {
         '^/proxy/.*': {
