@@ -92,6 +92,11 @@ export default defineConfig(({ command, mode }): UserConfig => {
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/proxy/, ''),
         },
+        '^/__logs__/.*': {
+          target: 'http://127.0.0.1:3000',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/__logs__/, ''),
+        },
       },
     },
     /**
