@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { defineConfig, loadEnv, UserConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import * as path from 'path';
@@ -8,6 +9,7 @@ import Components from 'unplugin-vue-components/vite';
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
 import antDesignThemeVars from './src/theme/ant-design-vars';
 import viteCompression from 'vite-plugin-compression';
+import { webUpdateNotice } from '@plugin-web-update-notification/vite';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }): UserConfig => {
@@ -68,6 +70,19 @@ export default defineConfig(({ command, mode }): UserConfig => {
        * gzip
        */
       viteCompression(),
+      /**
+       * web update notice
+       */
+      webUpdateNotice({
+        logVersion: true,
+        versionType: 'pkg_version',
+        checkInterval: 60 * 1000,
+        notificationProps: {
+          title: '版本更新',
+          description: '版本更新, 请刷新页面',
+          buttonText: '刷新',
+        },
+      }),
     ],
     /**
      * custom theme
@@ -98,6 +113,12 @@ export default defineConfig(({ command, mode }): UserConfig => {
           rewrite: (path) => path.replace(/^\/__logs__/, ''),
         },
       },
+    },
+    /**
+     * unit test
+     */
+    test: {
+      environment: 'happy-dom',
     },
     /**
      * build options
