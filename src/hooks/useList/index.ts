@@ -1,16 +1,10 @@
-import { removeEmpty } from '@/utils';
-import { reactive, ref } from 'vue';
+import { reactive, ref, watch } from 'vue';
 
 interface FilterOptions<T> {
   new (): T;
 }
 
-export type Page = {
-  page: number;
-  pageSize: number;
-};
-
-export default function useList<ItemType extends object, T extends object>(
+export default function useList<ItemType extends Object, T extends object>(
   loadDataFn: Function,
   FilterObject: FilterOptions<T>
 ) {
@@ -41,12 +35,18 @@ export default function useList<ItemType extends object, T extends object>(
   /**
    * 获取列表数据
    */
-  const getListData = async (params: Page & object) => {
+  const getListData = async (
+    pag: { page: number; pageSize: number },
+    params?: any
+  ) => {
     loading.value = true;
     try {
-      const data = await loadDataFn(removeEmpty(params));
-      currentPage.value = params.page;
-      pageSize.value = params.pageSize;
+      const data = await loadDataFn(
+        { page: pag.page, pageSize: pag.pageSize },
+        params
+      );
+      currentPage.value = pag.page;
+      pageSize.value = pag.pageSize;
       list.value = data;
     } catch {
       console.error('loadDataFn error');
